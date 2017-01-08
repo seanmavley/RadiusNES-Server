@@ -4,7 +4,7 @@ var radius = require('radius');
 var dgram = require('dgram');
 var util = require('util');
 
-var secret = 'radius_secret';
+var secret = 'secret';
 
 var client = dgram.createSocket("udp4");
 client.bind(49001);

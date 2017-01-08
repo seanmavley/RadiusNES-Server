@@ -2,7 +2,7 @@
 var radius = require('radius');
 var dgram = require("dgram");
 
-var secret = 'radius_secret';
+var secret = 'secret';
 var server = dgram.createSocket("udp4");
 
 var TestUser = require('../models/users');
@@ -27,6 +27,12 @@ server.on('message', function(msg, rinfo) {
   password = packet.attributes['User-Password'];
 
   console.log('Access-Request for ' + username + ' with password ' + password);
+
+  // if (username == 'rexford' && password == 'password') {
+  //   code = 'Access-Accept';
+  // } else {
+  //   code = 'Access-Reject'
+  // }
 
   TestUser.findOne({ username: 'rexford' })
     .then(function(user) {
