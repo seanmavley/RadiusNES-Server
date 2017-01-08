@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var TestUser = require('../models/users');
+var config = require('../config/database');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/radius');
+
 // usual promises is deprecated. 
 // falling back to native es6 promises
 mongoose.Promise = global.Promise;

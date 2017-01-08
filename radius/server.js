@@ -28,12 +28,7 @@ server.on('message', function(msg, rinfo) {
 
   console.log('Access-Request for ' + username + ' with password ' + password);
 
-  // if (username == 'rexford' && password == 'password') {
-  //   code = 'Access-Accept';
-  // } else {
-  //   code = 'Access-Reject'
-  // }
-
+  // Check if user exist from Database.
   TestUser.findOne({ username: 'rexford' })
     .then(function(user) {
       console.log('User returned, namely, ' + user);
