@@ -62,7 +62,7 @@ router.get('/login', function(req, res, next) {
 })
 
 router.post('/login', function(req, res, next) {
-  
+
   if (!req.body.email || !req.body.password) {
     res.json({
       success: false,
@@ -100,49 +100,14 @@ router.post('/login', function(req, res, next) {
         if (err) throw err;
       })
   }
-});
-// Post to update Profile
-router.post('/administrator', passport.authenticate('jwt', { session: false }), function(req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-    var decoded = jwt.verify(token, config.secret);
-    User.findOne({ 'local.email': decoded.local.email })
-      .then(function(err, user) {
-        var query = { 'local.email': decoded.local.email };
-        User.findOneAndUpdate({ query }, { 'local.name': req.body.fullname });
-
-        res.json({
-          success: true,
-          message: 'Update successful',
-        });
-      })
-      .catch(function(err) {
-        if (err) throw err;
-        if (!user) {
-          return res.status(403).send({ success: false, message: 'Authentication failed, user not found' });
-        }
-      })
-  }
 })
 
-// Administrator Page
-router.get('/administrator', function(req, res, next) {
-  passport.authenticate('jwt', { session: false }, function(err, user, info) {
-    // TODO: selectively return without password
-    if (err) {
-      return res.json({ success: false, message: err })
-    }
-    if (!user) {
-      return res.json({ sucess: false, message: 'Authentication failed. No user found!' })
-    } else {
-      res.json({
-        sucess: true,
-        message: 'Successful',
-        user: user,
-        info: info
-      })
-    }
-  })(req, res, next)
+router.get('/administrator', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+  res.json({ success: true, message: 'Without authentication' });
+})
+
+router.post('/administrator', function(req, res, next) {
+  res.json({ success: true, message: 'a Post' });
 })
 
 getToken = function(headers) {

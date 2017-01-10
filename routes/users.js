@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 var config = require('../config/database');
+var passport = require('passport');
 
 var mongoose = require('mongoose');
 
@@ -10,7 +11,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
   // respond with all users
   User.find({})
     .then(function(users) {
@@ -21,8 +22,9 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
   console.log(req.body);
+  console.log(req.headers);
   var user = User({
     fullname: req.body.fullname,
     username: req.body.username,

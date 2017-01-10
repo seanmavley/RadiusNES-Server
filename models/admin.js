@@ -9,7 +9,7 @@ var validateEmail = function(email) {
 };
 
 // define the schema for our user model
-var UserSchema = new Schema({
+var AdminSchema = new Schema({
   local: {
     email: String,
     password: String,
@@ -18,7 +18,7 @@ var UserSchema = new Schema({
 
 });
 
-// UserSchema.pre('save', function(next) {
+// AdminSchema.pre('save', function(next) {
 //   var user = this;
 //   if (this.isModified('local.password') || this.isNew) {
 //     bcrypt.genSalt(10, function(err, salt) {
@@ -38,7 +38,7 @@ var UserSchema = new Schema({
 //   }
 // });
 
-UserSchema.methods.comparePassword = function(password, cb) {
+AdminSchema.methods.comparePassword = function(password, cb) {
   bcrypt.compare(password, this.local.password, function(err, isMatch) {
     if (err) {
       return cb(err);
@@ -47,13 +47,13 @@ UserSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
-UserSchema.methods.generateHash = function(password) {
+AdminSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // // checking if password is valid
-// UserSchema.methods.validPassword = function(password) {
+// AdminSchema.methods.validPassword = function(password) {
 //     return bcrypt.compareSync(password, this.local.password);
 // };
 
-module.exports = mongoose.model('Admin', UserSchema);
+module.exports = mongoose.model('Operator', AdminSchema);
