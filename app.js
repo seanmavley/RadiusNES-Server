@@ -18,8 +18,8 @@ var TestUser = require('./models/users');
 // Routes
 var index = require('./routes/index');
 var api = require('./routes/api');
-var users = require('./routes/users');
 var admin = require('./routes/admin');
+var users = require('./routes/users');
 var radclient = require('./radius/client');
 
 // Radius Server

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var TestUser = require('../models/users');
+var User = require('../models/users');
 var config = require('../config/database');
 
 var mongoose = require('mongoose');
@@ -12,7 +12,7 @@ mongoose.Promise = global.Promise;
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   // respond with all users
-  TestUser.find({})
+  User.find({})
     .then(function(users) {
       res.json({ 'users': users });
     })
@@ -22,17 +22,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var rex = TestUser({
+  console.log(req.body);
+  var user = User({
+    fullname: req.body.fullname,
     username: req.body.username,
     password: req.body.password
   });
   // let's commit to database
-  rex.save()
+  user.save()
     .then(function(success) {
-      res.json({ 'message': rex });
+      res.json({ success: true, 'message': user });
     })
     .catch(function(err) {
-      res.json({ 'error': error });
+      res.json({ success: false, 'error': error });
     })
 
 })

@@ -10,7 +10,10 @@ mongoose.Promise = global.Promise;
 
 var User = require('../models/admin');
 
-/* GET home page. */
+/* 
+  ADMIN ROUTES 
+  route as /admin/
+*/
 router.get('/', function(req, res, next) {
   res.json({ message: 'Admin Pages' });
 });
@@ -58,7 +61,8 @@ router.get('/login', function(req, res, next) {
   res.json({ message: 'This is for login' });
 })
 
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res, next) {
+  
   if (!req.body.email || !req.body.password) {
     res.json({
       success: false,
@@ -70,6 +74,14 @@ router.post('/login', function(req, res) {
 
     User.findOne({ 'local.email': email })
       .then(function(user) {
+        // not found
+        if (!user) {
+          res.send({
+            success: false,
+            message: 'Authentication failed. User not found.'
+          });
+        }
+
         // check if password matches
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
@@ -86,13 +98,6 @@ router.post('/login', function(req, res) {
       })
       .catch(function(err) {
         if (err) throw err;
-
-        if (!user) {
-          res.send({
-            success: false,
-            message: 'Authentication failed. User not found.'
-          });
-        }
       })
   }
 });

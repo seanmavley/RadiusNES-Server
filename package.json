@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "node ./bin/www DEBUG=myapp:* npm start",
+    "develop": "node ./bin/www DEBUG=myapp:* npm start",
     "test": "mocha --timeout 10000"
   },
   "dependencies": {
