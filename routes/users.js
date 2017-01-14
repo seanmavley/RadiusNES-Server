@@ -24,12 +24,10 @@ router.get('/', passport.authenticate('jwt', { session: false }), function(req, 
 
 router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
   console.log(req.body);
-  console.log(req.headers);
-  var user = User({
-    fullname: req.body.fullname,
-    username: req.body.username,
-    password: req.body.password
-  });
+  // because User has a schema,
+  // is this even a good idea, shoving all req.body
+  // down mongodb's ass?
+  var user = User(req.body);
   // let's commit to database
   user.save()
     .then(function(success) {

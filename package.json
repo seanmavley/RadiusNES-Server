@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
+    "blueimp-md5": "^2.6.0",
     "body-parser": "~1.15.2",
+    "bufferpack": "0.0.6",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.1",
     "debug": "~2.2.0",
