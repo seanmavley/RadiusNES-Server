@@ -14,8 +14,7 @@ RadiusNES is a DaloRADIUS-like implementation using Node-radius as the RADIUS Se
  - Test Authentication using this: `radtest username password localhost 1812 secret`. OR Test authentication via API sending same request to `localhost:port/radclient`
 
 
- More details will be added as time goes on about how the RadiusNES works.
-
+## Available Routes
 
 ## License
 

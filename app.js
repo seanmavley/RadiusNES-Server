@@ -12,9 +12,6 @@ var config = require('./config/database');
 
 mongoose.connect(config.radiusDB);
 
-// Models
-var TestUser = require('./models/users');
-
 // Routes
 var index = require('./routes/index');
 var api = require('./routes/api');
@@ -55,8 +52,8 @@ app.use(function(err, req, res, next) {
   console.log(err.stack);
   // res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500).json(err);
+  // render the error via JSON
+  res.status(err.status || 500).json(err.stack);
   // res.json('error');
 });
 
